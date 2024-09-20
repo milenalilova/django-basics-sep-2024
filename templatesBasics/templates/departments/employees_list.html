@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees list</title>
+</head>
+<body>
+<h1>All Employees</h1>
+<ul>
+    {% for employee in employees %}
+        <li>{{ employee }}</li>
+    {% endfor %}
+    <a href="{% url 'departments list' %}">Back to departments</a>
+</ul>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees Count Per Department</title>
+</head>
+<body>
+{% for data in departments_data %}
+    <h3>The count of employees in department {{ data.department.name }} is {{ data.employees_count }}</h3>
+{% endfor %}
+</body>
+</html>

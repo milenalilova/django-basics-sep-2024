@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments List</title>
+</head>
+<body>
+
+{% if departments %}
+    {% for department in departments %}
+        <h2>{{ department }}</h2>
+    {% endfor %}
+{% else %}
+    <h2>No departments found</h2>
+{% endif %}
+
+
+{#{% for department in departments %}#}
+{#    <li>#}
+{#        <a href="{% url 'department details' department.pk %}">{{ department.name }}</a>#}
+{#    </li>#}
+{#{% endfor %}#}
+
+</body>
+</html>

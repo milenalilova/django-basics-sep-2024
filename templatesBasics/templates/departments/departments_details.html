@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments Details</title>
+</head>
+<body>
+
+<p>{{ department }}</p>
+
+{% if employees %}
+    {% for employee in employees %}
+        <p>{{ employee }}</p>
+    {% endfor %}
+{% else %}
+    <p>No employees found</p>
+{% endif %}
+
+<a href="{% url 'departments list' %}"> Back to Departments</a>
+
+</body>
+</html>
