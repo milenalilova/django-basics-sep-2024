@@ -40,6 +40,7 @@ def show_employees_count_per_department(request):
     for department in departments:
         employees_count = Employee.objects.filter(department=department).count()
         departments_data.append({'department': department, 'employees_count': employees_count})
-        context={'departments_data': departments_data}
+
+    context = {'departments_data': departments_data}
 
     return render(request, 'departments/employees_count_per_department.html', context)
