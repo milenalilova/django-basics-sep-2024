@@ -8,5 +8,6 @@ urlpatterns = [
     path('departments/<int:pk>/', views.show_departments_details, name='department details'),
     path('employees/', views.show_employees_list, name='employees list'),
     path('employees/count/', views.show_employees_count_per_department, name='employees count per department'),
+    path('bootstrap/', views.show_bootstrap, name='bootstrap'),
 
 ]

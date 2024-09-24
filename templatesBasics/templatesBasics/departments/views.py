@@ -44,3 +44,7 @@ def show_employees_count_per_department(request):
     context = {'departments_data': departments_data}
 
     return render(request, 'departments/employees_count_per_department.html', context)
+
+
+def show_bootstrap(request):
+    return render(request, 'departments/bootstrap.html')git
