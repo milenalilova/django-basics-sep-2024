@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from bookstoreCatalog.bookstore.forms import NameForm
 from bookstoreCatalog.bookstore.models import Book, Author, Genre, Review
 
 
@@ -58,3 +59,31 @@ def show_recent_reviews(request):
     context = {'reviews': reviews}
 
     return render(request, 'bookstore/recent_reviews.html', context)
+
+
+# def show_name(request):
+#     form = NameForm()
+#
+#     context = {'form': form,}
+#
+#     return render(request, 'bookstore/home_page.html', context)
+
+
+def show_name(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            # Do something with the data if needed
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+    else:
+        form = NameForm()  # For GET requests, initialize an empty form
+
+    # Print the form to the console to check if it's being initialized
+    print(form)  # This will help check if the form is created successfully
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'bookstore/home_page.html', context)

@@ -13,5 +13,25 @@
 
 <h2><a href="{% url 'books list' %}">Our Books</a></h2>
 
+
+{#<form method="post">#}
+{#    {% csrf_token %}#}
+{#    {% if form %}#}
+{#        <p>Form exists!</p>#}
+{#        {{ form.as_p }}#}
+{#    {% else %}#}
+{#        <p>No form found</p>#}
+{#    {% endif %}#}
+{#    <button type="submit">Show Name</button>#}
+{#</form>#}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.first_name.label_tag }} {{ form.first_name }}
+    {{ form.last_name.label_tag }} {{ form.last_name }}
+    <button type="submit">Show Name</button>
+</form>
+
 </body>
 </html>
+
