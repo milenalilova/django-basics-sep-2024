@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from formsBasics.employees.forms import EmployeeForm, DepartmentForm
 from formsBasics.employees.models import Department
 
 
@@ -16,8 +17,18 @@ def show_employees_list(request):
 
 
 def create_department(request):
-    return render(request, 'employees/create-department.html')
+    form = DepartmentForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('departments list')
+
+    context = {'form': form}
+
+    return render(request, 'employees/create-department.html', context)
 
 
 def create_employee(request):
-    return render(request, 'employees/create-employee.html')
+    form = EmployeeForm()
+    context = {'form': form}
+
+    return render(request, 'employees/create-employee.html', context)
