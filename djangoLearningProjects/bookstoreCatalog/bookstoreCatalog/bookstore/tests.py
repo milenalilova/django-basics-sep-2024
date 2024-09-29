@@ -1,3 +1,7 @@
 from django.test import TestCase
 
-# Create your tests here.
+from bookstoreCatalog.bookstore.views import show_name_simple
+
+show_name_simple('GET')
+print(show_name_simple('GET'))
+

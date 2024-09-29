@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from bookstoreCatalog.bookstore.forms import NameForm
+from bookstoreCatalog.bookstore.forms import NameForm, AuthorCreateForm
 from bookstoreCatalog.bookstore.models import Book, Author, Genre, Review
 
 
@@ -10,10 +10,21 @@ def index(request):
     authors = Author.objects.all()
     genres = Genre.objects.all()
 
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            # Do something with the data if needed
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+    else:
+        form = NameForm()  # For GET requests, initialize an empty form
+
     context = {
         'books': books,
         'authors': authors,
-        'genres': genres
+        'genres': genres,
+        'form': form
+
     }
 
     return render(request, 'bookstore/home_page.html', context)
@@ -30,12 +41,11 @@ def show_book_details(request, pk):
     book = Book.objects.get(pk=pk)
     context = {'book': book}
 
-    return render(request, 'bookstore/book_details.html', context)
-
-
+    return render(request, 'bookstore/book_details.html', contex
 def show_authors_list(request):
     authors = Author.objects.all()
-    context = {'authors': authors}
+    form = AuthorCreateForm()
+    context = {'authors': authors, 'form': form}
 
     return render(request, 'bookstore/authors_list.html', context)
 
@@ -59,31 +69,3 @@ def show_recent_reviews(request):
     context = {'reviews': reviews}
 
     return render(request, 'bookstore/recent_reviews.html', context)
-
-
-# def show_name(request):
-#     form = NameForm()
-#
-#     context = {'form': form,}
-#
-#     return render(request, 'bookstore/home_page.html', context)
-
-
-def show_name(request):
-    if request.method == 'POST':
-        form = NameForm(request.POST)
-        if form.is_valid():
-            # Do something with the data if needed
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-    else:
-        form = NameForm()  # For GET requests, initialize an empty form
-
-    # Print the form to the console to check if it's being initialized
-    print(form)  # This will help check if the form is created successfully
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'bookstore/home_page.html', context)
