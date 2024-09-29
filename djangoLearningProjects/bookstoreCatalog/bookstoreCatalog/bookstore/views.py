@@ -41,7 +41,7 @@ def show_book_details(request, pk):
     book = Book.objects.get(pk=pk)
     context = {'book': book}
 
-    return render(request, 'bookstore/book_details.html', contex
+    return render(request, 'bookstore/book_details.html', context)
 def show_authors_list(request):
     authors = Author.objects.all()
     form = AuthorCreateForm()
