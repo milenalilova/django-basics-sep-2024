@@ -6,5 +6,21 @@
 </head>
 <body>
 <h1>This Is The Home Page</h1>
+<div> This is a form with Select widget
+    <form>
+        {% csrf_token %}
+        {{ select_option_form.as_p }}
+    </form>
+</div>
+<br>
+<br>
+<br>
+<div> This is a checkbox form 
+    <form>
+        {% csrf_token %}
+        {{ checkbox_form.as_p }}
+    </form>
+</div>
+
 </body>
 </html>

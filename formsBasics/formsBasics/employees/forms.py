@@ -13,3 +13,17 @@ class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
         fields = '__all__'
+
+
+class SelectOptionForm(forms.Form):
+    CHOICES = (
+        ('1', 'Option One'),
+        ('2', 'Option Two'),
+    )
+
+    choice_field = forms.ChoiceField(choices=CHOICES)
+    char_field = forms.CharField(widget=forms.Select(choices=CHOICES))
+
+
+class CheckboxForm(forms.Form):
+    checkbox_field = forms.BooleanField(required=False)

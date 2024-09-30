@@ -1,11 +1,19 @@
 from django.shortcuts import render, redirect
 
-from formsBasics.employees.forms import EmployeeForm, DepartmentForm
+from formsBasics.employees.forms import EmployeeForm, DepartmentForm, SelectOptionForm, CheckboxForm
 from formsBasics.employees.models import Department
 
 
 def index(request):
-    return render(request, 'employees/home-page.html')
+    select_option_form = SelectOptionForm()
+    checkbox_form = CheckboxForm()
+
+    context = {
+        'select_option_form': select_option_form,
+        'checkbox_form': checkbox_form,
+    }
+
+    return render(request, 'employees/home-page.html', context)
 
 
 def show_departments_list(request):
