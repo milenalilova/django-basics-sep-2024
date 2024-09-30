@@ -28,7 +28,11 @@ def create_department(request):
 
 
 def create_employee(request):
-    form = EmployeeForm()
+    form = EmployeeForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('employees list')
+
     context = {'form': form}
 
     return render(request, 'employees/create-employee.html', context)
