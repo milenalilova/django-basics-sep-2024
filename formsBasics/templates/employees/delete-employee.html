@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Employee</title>
+</head>
+<body>
+
+<h1>This Is The Delete Employee Page</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ delete_form.as_p }}
+    <button type="submit">Delete</button>
+
+</form>
+
+
+</body>
+</html>

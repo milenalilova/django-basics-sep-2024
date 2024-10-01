@@ -15,6 +15,15 @@ class EmployeeForm(forms.ModelForm):
         fields = '__all__'
 
 
+class EmployeeDeleteForm(EmployeeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].disabled = True
+
+
+
 class SelectOptionForm(forms.Form):
     CHOICES = (
         ('1', 'Option One'),
@@ -27,3 +36,21 @@ class SelectOptionForm(forms.Form):
 
 class CheckboxForm(forms.Form):
     checkbox_field = forms.BooleanField(required=False)
+
+
+class RadioButtonForm(forms.Form):
+    CHOICES = (
+        ('1', 'Option One'),
+        ('2', 'Option Two'),
+    )
+
+    choices_field = forms.ChoiceField(
+        choices=CHOICES,
+        widget=forms.RadioSelect(),
+    )
+
+    char_field = forms.CharField(
+        widget=forms.RadioSelect(
+            choices=CHOICES
+        )
+    )
