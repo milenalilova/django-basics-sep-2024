@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 
-from formsBasics.employees.forms import EmployeeForm, EmployeeDeleteForm, DepartmentForm, SelectOptionForm, CheckboxForm, RadioButtonForm
+from formsBasics.employees.forms import EmployeeForm, EmployeeDeleteForm, EmployeeSearchForm, DepartmentForm, \
+    SelectOptionForm, CheckboxForm, RadioButtonForm
 from formsBasics.employees.models import Department, Employee
 
 
@@ -23,7 +25,22 @@ def show_departments_list(request):
 
 
 def show_employees_list(request):
-    return render(request, 'employees/employees-list.html')
+    employees = Employee.objects.all()
+    employee_search_form = EmployeeSearchForm(request.GET or None)
+
+    if employee_search_form.is_valid():
+        query = employee_search_form.cleaned_data['query']
+        if query:
+            employees = employees.filter(
+                Q(first_name__icontains=query) | Q(last_name__icontains=query)
+            )
+
+    context = {
+        'employees': employees,
+        'employee_search_form': employee_search_form
+    }
+
+    return render(request, 'employees/employees-list.html', context)
 
 
 def create_department(request):

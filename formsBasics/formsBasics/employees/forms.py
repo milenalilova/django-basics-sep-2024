@@ -23,6 +23,9 @@ class EmployeeDeleteForm(EmployeeForm):
             self.fields[field].disabled = True
 
 
+class EmployeeSearchForm(forms.Form):
+    query = forms.CharField(label='Search Employees', max_length=100, required=False)
+
 
 class SelectOptionForm(forms.Form):
     CHOICES = (
