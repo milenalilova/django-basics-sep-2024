@@ -32,7 +32,7 @@ def create_employee(request):
 
     context = {'form': form}
 
-    return render(request, 'employees/create-employees.html', context)
+    return render(request, 'employees/create-employee.html', context)
 
 
 def delete_employee(request, pk):
