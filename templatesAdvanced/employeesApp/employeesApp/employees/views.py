@@ -1,8 +1,8 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from employeesApp.departments.models import Employee
 from employeesApp.employees.forms import EmployeeForm, EmployeeDeleteForm, EmployeeSearchForm
+from employeesApp.employees.models import Employee
 
 
 def show_employees_list(request):

@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'common/nav-bar.html' %}
     
     <h1>This Is The Department List Page</h1>
     
+    {% for department in departments %}
+        <li>
+        {{ department.pk }}
+        </li>
+    {% endfor %}
 {% endblock %}

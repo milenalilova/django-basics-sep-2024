@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from employeesApp.departments.forms import DepartmentForm, DepartmentDeleteForm
 from employeesApp.departments.models import Department
@@ -24,8 +24,8 @@ def create_department(request):
 
 
 def delete_department(request, pk):
-    department = Department.objects.get(pk=pk)
-    delete_form = DepartmentDeleteForm()
+    department = get_object_or_404(Department, pk=pk)
+    delete_form = DepartmentDeleteForm(instance=department)
 
     if request.method == 'POST':
         department.delete()
