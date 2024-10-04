@@ -9,9 +9,13 @@
     
     <h1>This Is The Department List Page</h1>
     
+    <h2>Departments</h2>
+<ul>
     {% for department in departments %}
         <li>
-        {{ department.pk }}
+            {{ department.name }} 
+            <a href="{% url 'delete department' department.pk %}">Delete</a>
         </li>
     {% endfor %}
+</ul>
 {% endblock %}
