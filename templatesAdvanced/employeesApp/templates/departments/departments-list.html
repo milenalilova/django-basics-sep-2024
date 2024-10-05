@@ -14,7 +14,7 @@
     {% for department in departments %}
         <li>
             {{ department.name }} 
-            <a href="{% url 'delete department' department.pk %}">Delete</a>
+            <a href="{% url 'department details' department.pk %}">Details</a>
         </li>
     {% endfor %}
 </ul>
