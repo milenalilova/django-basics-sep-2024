@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Department Details
+{% endblock %}
+
+{% block content %}
+    {% include 'common/nav-bar.html' %}
+
+    <h1>This Is The Department Details Page</h1>
+
+    <div>
+        {{ department.name }}
+        <li>
+            {{ department.description }}
+        </li>
+    </div>
+
+
+{% endblock %}

@@ -12,6 +12,13 @@ def show_departments_list(request):
     return render(request, 'departments/departments-list.html', context)
 
 
+def department_details(request, pk):
+    department = get_object_or_404(Department, pk=pk)
+    context = {'department': department}
+
+    return render(request, 'departments/department-details.html', context)
+
+
 def create_department(request):
     form = DepartmentForm(request.POST or None)
     if form.is_valid():
