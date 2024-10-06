@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'common/nav-bar.html' %}
+    {% include 'common/../nav-bar.html' %}
     <h1>This Is The Create Employee Page</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Employee</button>
+    </form>
 {% endblock %}
+

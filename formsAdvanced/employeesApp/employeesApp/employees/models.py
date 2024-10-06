@@ -4,7 +4,7 @@ from employeesApp.departments.models import Department
 
 
 class Employee(models.Model):
-    first_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, blank=False)
     last_name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)

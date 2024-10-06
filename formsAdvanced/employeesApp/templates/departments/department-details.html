@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'common/nav-bar.html' %}
+    {% include 'common/../nav-bar.html' %}
 
     <h1>This Is The Department Details Page</h1>
 
@@ -15,6 +15,8 @@
             {{ department.description }}
         </li>
     </div>
+
+    <a href="{% url 'delete department' department.pk %}">Delete Department</a>
 
 
 {% endblock %}

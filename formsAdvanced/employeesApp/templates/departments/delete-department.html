@@ -5,14 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'common/nav-bar.html' %}
-    
+    {% include 'common/../nav-bar.html' %}
+
     <h1>This Is The Delete Department Page</h1>
-    
-                <a href="{% url 'delete department' department.pk %}">Delete Department</a>
-{#    <form method="post">#}
-{#    {% csrf_token %}#}
-{#        {{delete_form}}#}
-{#    <button type="submit">Delete</button>#}
-{#    </form>#}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ delete_form }}
+        <button type="submit">Delete</button>
+    </form>
 {% endblock %}

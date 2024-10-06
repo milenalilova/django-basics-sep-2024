@@ -8,6 +8,13 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         fields = '__all__'
 
+        error_messages = {
+            'first_name': {
+                'required': 'Please enter your first name.',
+                'max_length': 'First name cannot exceed 100 characters.',
+            },
+        }
+
 
 class EmployeeDeleteForm(EmployeeForm):
     def __init__(self, *args, **kwargs):
@@ -18,4 +25,11 @@ class EmployeeDeleteForm(EmployeeForm):
 
 
 class EmployeeSearchForm(forms.Form):
-    query = forms.CharField(label='Search Employees', max_length=100, required=False)
+    query = forms.CharField(
+        label='Search Employees',
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Search Employees'}
+        )
+    )
