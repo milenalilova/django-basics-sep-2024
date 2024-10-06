@@ -7,7 +7,12 @@
 {% block content %}
     {% include 'common/nav-bar.html' %}
     <h1>This Is The Delete Employee Page</h1>
-    
-    <a href="{% url 'delete employee' employee.pk %}">Delete Employee</a>
-    
+
+    {#    <a href="{% url 'delete employee' employee.pk %}">Delete Employee</a>#}
+    <form method="post">
+        {% csrf_token %}
+        {{ delete_form }}
+        <button type="submit">Delete Employee</button>
+    </form>
+
 {% endblock %}

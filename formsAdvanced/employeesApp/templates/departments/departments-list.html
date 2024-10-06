@@ -6,16 +6,20 @@
 
 {% block content %}
     {% include 'common/nav-bar.html' %}
-    
+
     <h1>This Is The Department List Page</h1>
-    
+
     <h2>Departments</h2>
-<ul>
-    {% for department in departments %}
-        <li>
-            {{ department.name }} 
-            <a href="{% url 'department details' department.pk %}">Details</a>
-        </li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for department in departments %}
+            <li>
+                {{ department.name }}
+                <a href="{% url 'department details' department.pk %}">Details</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+   
+
+    <a href="{% url 'create department' %}">Add Department</a>
 {% endblock %}
