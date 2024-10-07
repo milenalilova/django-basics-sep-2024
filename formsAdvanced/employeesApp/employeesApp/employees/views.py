@@ -37,8 +37,6 @@ def create_employee(request):
     if form.is_valid():
         form.save()
         return redirect('employees list')
-    else:
-        print(form.errors)
 
     context = {'form': form}
 
