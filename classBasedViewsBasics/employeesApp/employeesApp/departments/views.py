@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, UpdateView
 
 from employeesApp.departments.forms import DepartmentForm, DepartmentDeleteForm
 from employeesApp.departments.models import Department
@@ -19,28 +21,27 @@ def department_details(request, pk):
     return render(request, 'departments/department-details.html', context)
 
 
-def create_department(request):
-    form = DepartmentForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('departments list')
-
-    context = {'form': form}
-
-    return render(request, 'departments/create-department.html', context)
+class CreateDepartment(CreateView):
+    model = Department
+    form_class = DepartmentForm
+    template_name = 'departments/create-department.html'
+    success_url = reverse_lazy('departments list')
 
 
-def delete_department(request, pk):
-    department = get_object_or_404(Department, pk=pk)
-    delete_form = DepartmentDeleteForm(instance=department)
+class EditDepartment(UpdateView):
+    model = Department
+    form_class = DepartmentForm
+    template_name = 'departments/edit-department.html'
+    success_url = reverse_lazy('departments list')
 
-    if request.method == 'POST':
-        department.delete()
-        return redirect('departments list')
 
-    context = {
-        'department': department,
-        'delete_form': delete_form
-    }
+class DeleteDepartment(DeleteView):
+    model = Department
+    form_class = DepartmentDeleteForm
+    template_name = 'departments/delete-department.html'
+    success_url = reverse_lazy('departments list')
 
-    return render(request, 'departments/delete-department.html', context)
+    def get_initial(self):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        department = Department.objects.get(pk=pk)
+        return department.__dict__

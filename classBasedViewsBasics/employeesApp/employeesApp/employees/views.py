@@ -1,5 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from employeesApp.employees.forms import EmployeeForm, EmployeeDeleteForm, EmployeeSearchForm
 from employeesApp.employees.models import Employee
@@ -32,15 +34,21 @@ def show_employee_details(request, pk):
     return render(request, 'employees/employee-details.html', context)
 
 
-def create_employee(request):
-    form = EmployeeForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('employees list')
+# def create_employee(request):
+#     form = EmployeeForm(request.POST or None)
+#     if form.is_valid():
+#         form.save()
+#         return redirect('employees list')
+#
+#     context = {'form': form}
+#
+#     return render(request, 'employees/create-employee.html', context)
 
-    context = {'form': form}
-
-    return render(request, 'employees/create-employee.html', context)
+class CreateEmployee(CreateView):
+    fields = '__all__'
+    model = Employee
+    template_name = 'employees/create-employee.html'
+    success_url = reverse_lazy('employees list')
 
 
 def delete_employee(request, pk):
