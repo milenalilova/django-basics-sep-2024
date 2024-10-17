@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Employee Details
+{% endblock %}
+
+{% block content %}
+    {% include 'common/../nav-bar.html' %}
+
+    <h1>This Is The Employee Details Page</h1>
+
+    <div>
+        <p>{{ employee.first_name }} {{ employee.last_name }}</p>
+        <p>Works as {{ employee.position }}</p>
+        <p>In the {{ employee.department }} department </p>
+
+        <a href="{% url 'delete employee' employee.pk %}">Delete</a>
+
+    </div>
+
+
+{% endblock %}
