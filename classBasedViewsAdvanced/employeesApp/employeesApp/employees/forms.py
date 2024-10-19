@@ -25,6 +25,7 @@ class EmployeeDeleteForm(EmployeeForm):
 
 
 class EmployeeSearchForm(forms.Form):
+    # TODO fix the SearchForm
     query = forms.CharField(
         label='Search Employees',
         max_length=100,

@@ -2,32 +2,40 @@ from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView
 
 from employeesApp.employees.forms import EmployeeForm, EmployeeDeleteForm, EmployeeSearchForm, EmployeeFeedbackForm
 from employeesApp.employees.models import Employee
 
 
-def show_employees_list(request):
-    employees = Employee.objects.all()
-    employee_search_form = EmployeeSearchForm(request.GET or None)
+# def show_employees_list(request):
+#     employees = Employee.objects.all()
+#     employee_search_form = EmployeeSearchForm(request.GET or None)
+#
+#     if employee_search_form.is_valid():
+#         query = employee_search_form.cleaned_data['query']
+#         if query:
+#             employees = employees.filter(
+#                 Q(first_name__icontains=query) | Q(last_name__icontains=query)
+#             )
+#
+#     context = {
+#         'employees': employees,
+#         'employee_search_form': employee_search_form,
+#     }
+#
+#     return render(request, 'employees/employees-list.html', context)
 
-    if employee_search_form.is_valid():
-        query = employee_search_form.cleaned_data['query']
-        if query:
-            employees = employees.filter(
-                Q(first_name__icontains=query) | Q(last_name__icontains=query)
-            )
 
-    context = {
-        'employees': employees,
-        'employee_search_form': employee_search_form,
-    }
+class EmployeesList(ListView):
+    model = Employee
+    context_object_name = 'employees'
+    template_name = 'employees/employees-list.html'
+    paginate_by = 3
 
-    return render(request, 'employees/employees-list.html', context)
+    def get_queryset(self):
+        return Employee.objects.all()
 
-
-from django.views import View
 
 class EmployeeDetails(DetailView):
     model = Employee
@@ -64,7 +72,6 @@ class EmployeeDetails(DetailView):
             messages.error(request, 'There were errors in your submission. Please correct them.')
             context = self.get_context_data(feedback_form=form)  # Pass the form with errors
             return self.render_to_response(context)
-
 
 
 class CreateEmployee(CreateView):
