@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView
 
 from myPlantApp.plants.models import Plant
 from myPlantApp.profiles.forms import ProfileCreateForm, ProfileEditForm, ProfileDeleteForm
@@ -29,16 +29,26 @@ class ProfileCreateView(CreateView):
         return super().form_valid(form)
 
 
-def show_details_profile(request):
-    profile = get_profile()
-    all_plants = len(Plant.objects.all())
+# def show_details_profile(request):
+#     profile = get_profile()
+#     all_plants = len(Plant.objects.all())
+#
+#     context = {
+#         'profile': profile,
+#         'all_plants': all_plants
+#     }
+#
+#     return render(request, 'profiles/profile-details.html', context)
 
-    context = {
-        'profile': profile,
-        'all_plants': all_plants
-    }
 
-    return render(request, 'profiles/profile-details.html', context)
+class ProfileDetailsView(TemplateView):
+    template_name = 'profiles/profile-details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = get_profile()
+        context['all_plants'] = len(Plant.objects.all())
+        return context
 
 
 # def edit_profile(request):
@@ -69,21 +79,42 @@ class ProfileEditView(UpdateView):
         return get_profile()
 
 
-def delete_profile(request):
-    profile = get_profile()
-    all_plants = Plant.objects.all()
+# def delete_profile(request):
+#     profile = get_profile()
+#     all_plants = Plant.objects.all()
+#
+#     form = ProfileDeleteForm(request.POST or None)
+#
+#     if request.method == 'POST':
+#         profile.delete()
+#         all_plants.delete()
+#         return redirect('home page')
+#
+#     context = {
+#         'form': form,
+#         'profile': profile,
+#         'all_plants': all_plants
+#     }
+#
+#     return render(request, 'profiles/delete-profile.html', context)
 
-    form = ProfileDeleteForm(request.POST or None)
 
-    if request.method == 'POST':
+class ProfileDeleteView(DeleteView):
+    model = Profile
+    form_class = ProfileDeleteForm
+    template_name = 'profiles/delete-profile.html'
+    success_url = reverse_lazy('home page')
+
+    def get_object(self, queryset=None):
+        return get_profile()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['all_plants'] = Plant.objects.all()
+        return context
+
+    def form_valid(self, form):
+        profile = self.get_object()
+        Plant.objects.all().delete()
         profile.delete()
-        all_plants.delete()
-        return redirect('home page')
-
-    context = {
-        'form': form,
-        'profile': profile,
-        'all_plants': all_plants
-    }
-
-    return render(request, 'profiles/delete-profile.html', context)
+        return redirect(self.success_url)
