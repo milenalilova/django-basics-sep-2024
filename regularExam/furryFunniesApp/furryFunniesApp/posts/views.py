@@ -25,19 +25,17 @@ def create_post(request):
 
 
 def show_details_post(request, post_id):
-    profile = get_profile()
     post = Post.objects.get(pk=post_id)
 
-    content = {
-        'post': post,
-        'profile': profile
+    context = {
+        'post': post
+
     }
 
-    return render(request, 'posts/details-post.html', content)
+    return render(request, 'posts/details-post.html', context)
 
 
 def edit_post(request, post_id):
-    profile = get_profile()
     post = Post.objects.get(pk=post_id)
     form = PostEditForm(instance=post)
 
@@ -49,15 +47,14 @@ def edit_post(request, post_id):
 
     context = {
         'form': form,
-        'post': post,
-        'profile': profile
+        'post': post
+
     }
 
     return render(request, 'posts/edit-post.html', context)
 
 
 def delete_post(request, post_id):
-    profile = get_profile()
     post = Post.objects.get(pk=post_id)
     form = PostDeleteForm(instance=post)
 
@@ -67,8 +64,8 @@ def delete_post(request, post_id):
 
     context = {
         'form': form,
-        'post': post,
-        'profile': profile
+        'post': post
+
     }
 
     return render(request, 'posts/delete-post.html', context)

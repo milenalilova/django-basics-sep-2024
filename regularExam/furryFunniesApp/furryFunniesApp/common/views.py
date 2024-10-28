@@ -5,20 +5,14 @@ from furryFunniesApp.urils import get_profile
 
 
 def index(request):
-    profile = get_profile()
-
-    context = {'profile': profile}
-
-    return render(request, 'common/index.html', context)
+    return render(request, 'common/index.html')
 
 
 def show_dashboard(request):
-    profile = get_profile()
     all_posts = Post.objects.all()
 
     context = {
-        'all_posts': all_posts,
-        'profile': profile
+        'all_posts': all_posts
     }
 
     return render(request, 'common/dashboard.html', context)

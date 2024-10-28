@@ -6,7 +6,6 @@ from furryFunniesApp.urils import get_profile
 
 
 def create_author(request):
-    profile = get_profile()
     form = AuthorCreateForm(request.POST or None)
 
     if request.method == 'POST':
@@ -15,8 +14,7 @@ def create_author(request):
             return redirect('dashboard')
 
     context = {
-        'form': form,
-        'profile': profile
+        'form': form
     }
 
     return render(request, 'authors/create-author.html', context)
